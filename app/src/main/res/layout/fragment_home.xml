@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:backgroundTint="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="40dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnNotes"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Notes"
+            app:backgroundTint="#FFFFFF" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUpload"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Upload"
+            app:backgroundTint="#FFFFFF" />
+
+        <ImageView
+            android:id="@+id/notificationsIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="8dp"
+            android:contentDescription="Notifications Icon"
+            android:src="@drawable/baseline_edit_notifications_24" />
+    </LinearLayout>
+    <ImageView
+        android:id="@+id/centerImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/animm"
+        android:layout_marginBottom="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/buttonsLayout"
+        android:layout_marginTop="32dp"/>
+
+    <TextView
+        android:id="@+id/explanationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/centerImage"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:text="Pastikan bahwa gestur Anda konsisten dengan pesan yang Anda sampaikan. Misalnya, jika Anda bergerak tentang hal yang penting atau serius, gestur Anda harus mencerminkan hal tersebut. Jangan gunakan gestur yang bertentangan dengan pesan Anda ......
+"/>
+
+    <LinearLayout
+        android:id="@+id/bottomButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/explanationText"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnUploads"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Upload"
+            app:backgroundTint="#3DC6F1"
+            app:cornerRadius="35dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRecord"
+            style="@style/Widget.MaterialComponents.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="Record"
+            app:backgroundTint="#3DC6F1"
+            app:cornerRadius="35dp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

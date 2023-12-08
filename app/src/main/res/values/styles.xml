@@ -1,0 +1,8 @@
+<!-- res/values/styles.xml -->
+<resources>
+
+    <style name="WhiteButtonStyle" parent="Widget.AppCompat.Button">
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+</resources>

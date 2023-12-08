@@ -1,0 +1,31 @@
+<!-- activity_notes.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/editTextNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Write your note here..."
+        android:inputType="textMultiLine"
+        android:textSize="50dp"
+        android:gravity="top"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextNote"
+        android:layout_centerHorizontal="true"
+        android:text="Display Note"
+        android:onClick="displayNote"/>
+
+    <TextView
+        android:id="@+id/textViewDisplay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"/>
+</RelativeLayout>

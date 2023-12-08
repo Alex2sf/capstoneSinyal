@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SettingFragment">
+
+    <Button
+        android:id="@+id/btnExplore"
+        android:layout_width="314dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:text="Explore"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnFollowing"
+        android:layout_width="314dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:text="Following"
+        android:layout_marginTop="60dp"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnCreateEvent"
+        android:layout_width="314dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:text="Create Event"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/rounded_button" />
+
+    <Button
+        android:id="@+id/btnHistory"
+        android:layout_width="314dp"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:text="History"
+        android:layout_marginTop="180dp"
+        android:background="@drawable/rounded_button" />
+
+</FrameLayout>

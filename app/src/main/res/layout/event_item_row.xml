@@ -1,0 +1,116 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <!-- Data Binding variables, jika diperlukan -->
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="330dp"
+        android:layout_height="208dp"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="36dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="36dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="35dp"
+        app:cardElevation="8dp"
+      >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="127dp"
+            android:layout_gravity="top"
+            android:scaleType="fitXY"
+            android:src="@drawable/bct" />
+
+        <!-- Teks Tanggal -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="135dp"
+            android:text="Sabtu, 01 Dec 2023"
+            android:textColor="#3498db"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="150dp"
+            android:text="Workshop : Cara mendapatkan cinta sejati"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <TextView
+            android:id="@+id/hel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="165dp"
+            android:text="10.30 - 12.00 - Gymnastic UI"
+            android:textColor="@color/black"
+            android:textSize="10sp" />
+
+        <!-- Foto Kecil Pertama -->
+
+        <!-- Foto Kecil Kedua -->
+        <ImageView
+            android:id="@+id/a"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_below="@id/hel"
+            android:layout_gravity="top"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="185dp"
+            android:background="@drawable/circle_background"
+            android:clipToOutline="true"
+            android:src="@drawable/ash" />
+
+        <ImageView
+            android:id="@+id/aa"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_below="@id/hel"
+            android:layout_gravity="top"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="185dp"
+            android:layout_toEndOf="@id/a"
+            android:background="@drawable/circle_background"
+            android:clipToOutline="true"
+            android:src="@drawable/ash" />
+
+        <!-- Foto Kecil Ketiga -->
+        <ImageView
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:layout_below="@id/hel"
+            android:layout_gravity="top"
+            android:layout_marginStart="17dp"
+
+            android:layout_marginTop="185dp"
+            android:layout_toEndOf="@id/aa"
+            android:background="@drawable/circle_background"
+            android:clipToOutline="true"
+            android:src="@drawable/ash" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/a"
+            android:layout_marginStart="60dp"
+            android:layout_marginTop="187dp"
+
+            android:text="Joined by Royco"
+            android:textColor="@color/black"
+            android:textSize="9sp" />
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
