@@ -163,7 +163,6 @@ class AddEventActivity : AppCompatActivity() {
                val endTimePart = end_time.toInt()
                val maxParticipantPart = maxpar.toInt()
 
-               Log.e("Apaan dah", token)
                addStoryViewModel.upload(
                    imageMultipart,
                    namePart,
