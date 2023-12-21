@@ -4,9 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.sinyal.dataclass.Data
 
 @Database(
-    entities = [EventDetail::class, Remote::class],
+    entities = [Data::class, Remote::class],
     version = 2,
     exportSchema = false
 )

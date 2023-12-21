@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.datastore.core.DataStore
@@ -16,21 +17,30 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModelProvider
 import com.example.UserPreferences
 import com.example.sinyal.databinding.ActivityLoginBinding
-import com.example.sinyal.dataclass.LoginDataAccount
+import com.example.sinyal.dataclass.Errors
+import com.example.sinyal.dataclass.LoginAccount
+import com.example.sinyal.dataclass.ResponseLogin
+import com.example.sinyal.repository.MainRepository
 import com.example.sinyal.viewmodel.MainViewModel
 import com.example.viewmodel.DataStoreViewModel
 import com.example.viewmodel.ViewModelFactory
 import com.google.android.gms.ads.MobileAds
+import com.google.gson.Gson
+import retrofit2.Call
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity() : AppCompatActivity() {
     private lateinit var binding : ActivityLoginBinding
-
     // Membuat ViewModel yang akan digunakan
+    lateinit var mainRepository: MainRepository
+
     private val loginViewModel: MainViewModel by lazy {
         ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
     }
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,12 +113,15 @@ class LoginActivity : AppCompatActivity() {
         message: String,
         dataStoreViewModel: DataStoreViewModel
     ) {
+        val user = loginViewModel.userlogin.value
+        user?.accessToken?.let { dataStoreViewModel.saveToken(it) }
+        dataStoreViewModel.saveLoginSession(true)
+        dataStoreViewModel.saveName("Hhehee")
+
         if (message.contains("Hello")) {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-            val user = loginViewModel.userlogin.value
-            dataStoreViewModel.saveLoginSession(true)
-            dataStoreViewModel.saveToken(user?.loginResult!!.token)
-            dataStoreViewModel.saveName(user.loginResult.name)
+
+
         } else {
 
             // Menampilkan pesan toast
@@ -123,11 +136,27 @@ class LoginActivity : AppCompatActivity() {
             binding.pass.clearFocus()
 
             if (isDataValid()) {
-                val requestLogin = LoginDataAccount(
+                val requestLogin = LoginAccount(
+
                     binding.email.text.toString().trim(),
                     binding.pass.text.toString().trim()
+
                 )
-                loginViewModel.login(requestLogin)
+                loginViewModel.login(requestLogin, fun(response){
+
+                    if (response.isSuccessful) {
+                        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
+                    } else {
+
+                        }
+
+                },fun(t){
+        })
+
+
+
             } else {
                 if (!binding.email.emailValidationStatus) binding.email.error =
                     getString(R.string.emailNone)
@@ -139,7 +168,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         binding.btnRegister.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
         }
 

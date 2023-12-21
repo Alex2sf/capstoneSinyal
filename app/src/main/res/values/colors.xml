@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="register_click">#4E31AA</color>
+
+    <color name="dark_blue">#E86A33</color>
+    <color name="white2">#F4EEE0</color>
+
+    <color name="grey">#393646</color>
+    <color name="button">#3C486B</color>
+
+    <style name="ProgressBarStyle">
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+    <style name="ProgressBarStyleWhite">
+        <item name="colorAccent">@color/white</item>
+    </style>
+
+    <color name="light_blue_1000">#394867</color>
+    <color name="white_500">#F1F6F9</color>
+
+    <color name="wordColor">#494242</color>
+    <color name="buttonColor">#6A7073</color>
+
 </resources>

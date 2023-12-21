@@ -8,7 +8,6 @@ import com.example.UserPreferences
 import kotlinx.coroutines.launch
 
 class DataStoreViewModel(private val pref: UserPreferences) : ViewModel() {
-
     fun getLoginSession(): LiveData<Boolean> {
         return pref.getLoginSession().asLiveData()
     }

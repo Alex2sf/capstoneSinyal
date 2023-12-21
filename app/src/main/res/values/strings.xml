@@ -32,6 +32,7 @@
     <string name="content">This image is part of the story</string>
     <string name="imageDataNone">Displayed when there\'s no data</string>
 
+    <string name="username">Enter your email username</string>
 
     <string name="email">Enter your email address</string>
     <string name="emailFormatWrong">Incorrect email format</string>

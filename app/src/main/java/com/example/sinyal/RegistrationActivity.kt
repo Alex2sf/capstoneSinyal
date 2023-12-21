@@ -1,28 +1,29 @@
 package com.example.sinyal
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.UserPreferences
-import com.example.sinyal.databinding.ActivityRegisterBinding
-import com.example.sinyal.dataclass.LoginDataAccount
+import com.example.sinyal.databinding.ActivityRegistrationBinding
+import com.example.sinyal.dataclass.LoginAccount
 import com.example.sinyal.dataclass.RegisterDataAccount
 import com.example.sinyal.viewmodel.MainViewModel
 import com.example.viewmodel.DataStoreViewModel
 import com.example.viewmodel.ViewModelFactory
-import com.google.android.gms.ads.MobileAds
 
-class RegisterActivity : AppCompatActivity() {
+
+class RegistrationActivity : AppCompatActivity() {
+
     // Mendeklarasikan variabel binding untuk binding layout dan view model
-    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var binding: ActivityRegistrationBinding
     private val registerViewModel: MainViewModel by lazy {
         // Mendapatkan instance dari MainViewModel menggunakan ViewModelProvider
-        ViewModelProvider(this)[MainViewModel::class.java]
+        ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
     }
     private val loginViewModel: MainViewModel by lazy {
         // Mendapatkan instance dari MainViewModel untuk operasi login
@@ -32,10 +33,8 @@ class RegisterActivity : AppCompatActivity() {
     // Fungsi yang dipanggil saat aktivitas dibuat
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        MobileAds.initialize(this)
-
         // Menghubungkan layout XML dengan Activity menggunakan data binding
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityRegistrationBinding.inflate(layoutInflater)
         setContentView(binding.root)
         // Mengatur judul ActionBar dan tombol back
         supportActionBar?.title = resources.getString(R.string.createAccount)
@@ -45,12 +44,12 @@ class RegisterActivity : AppCompatActivity() {
 
         // Mengakses dataStore dari UserPreferences dan mengamati status login
         val pref = UserPreferences.getInstance(dataStore)
-        val dataStoreViewModel =      ViewModelProvider(this, ViewModelFactory(pref))[DataStoreViewModel::class.java]
-
+        val dataStoreViewModel =
+            ViewModelProvider(this, ViewModelFactory(pref))[DataStoreViewModel::class.java]
         dataStoreViewModel.getLoginSession().observe(this) { sessionTrue ->
             // Jika sesi login aktif, pindah ke HomePageActivity dan tutup aktivitas ini
             if (sessionTrue) {
-                val intent = Intent(this@RegisterActivity, MainActivity::class.java)
+                val intent = Intent(this@RegistrationActivity, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
@@ -82,8 +81,8 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
             val user = loginViewModel.userlogin.value
             dataStoreViewModel.saveLoginSession(true)
-            dataStoreViewModel.saveToken(user?.loginResult!!.token)
-            dataStoreViewModel.saveName(user.loginResult.name)
+            user?.accessToken?.let { dataStoreViewModel.saveToken(it) }
+            dataStoreViewModel.saveName("Hhehee")
         } else {
             // Jika login gagal, menampilkan pesan kesalahan
             Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
@@ -99,11 +98,26 @@ class RegisterActivity : AppCompatActivity() {
                 resources.getString(R.string.accountSuccessCreated),
                 Toast.LENGTH_SHORT
             ).show()
-            val userLogin = LoginDataAccount(
+            val userLogin = LoginAccount(
                 binding.RegistEmail.text.toString(),
                 binding.RegistPassword.text.toString()
             )
-            loginViewModel.login(userLogin)
+
+            loginViewModel.login(userLogin, fun(response){
+
+                if (response.isSuccessful) {
+                    val intent = Intent(this@RegistrationActivity, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(intent)
+                } else {
+
+                }
+
+            },fun(t){
+            })
+
+
+
         } else {
             // Jika registrasi gagal, menampilkan pesan kesalahan
             if (message.contains("Email yang anda masukan sudah terdaftar")) {
@@ -148,18 +162,21 @@ class RegisterActivity : AppCompatActivity() {
                 RegistEmail.clearFocus()
                 RegistPassword.clearFocus()
                 RetypePassword.clearFocus()
+                Username.clearFocus()
             }
 
             // Memvalidasi input pengguna dan melakukan registrasi jika valid
-            if (binding.RegistName.nameValidationStatus && binding.RegistEmail.emailValidationStatus && binding.RegistPassword.passwordValidationStatus && binding.RetypePassword.passwordValidationStatus) {
+            if (binding.RegistName.nameValidationStatus && binding.RegistEmail.emailValidationStatus && binding.RegistPassword.passwordValidationStatus && binding.RetypePassword.passwordValidationStatus && binding.Username.userValidationStatus) {
                 val dataRegisterAccount = RegisterDataAccount(
                     name = binding.RegistName.text.toString().trim(),
                     email = binding.RegistEmail.text.toString().trim(),
-                    password = binding.RegistPassword.text.toString().trim()
+                    password = binding.RegistPassword.text.toString().trim(),
+                    username = binding.Username.text.toString().trim()
                 )
 
-                // Memanggil fungsi registrasi dari ViewModel
+
                 registerViewModel.register(dataRegisterAccount)
+
             } else {
                 // Menampilkan pesan kesalahan jika input tidak valid
                 if (!binding.RegistName.nameValidationStatus) binding.RegistName.error =

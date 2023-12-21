@@ -21,6 +21,7 @@
             android:layout_marginBottom="16dp"/>
 
         <ImageView
+            android:id="@+id/imageUpload"
             android:layout_width="match_parent"
             android:layout_height="250dp"
             android:src="@drawable/baseline_insert_photo_24"
@@ -36,20 +37,33 @@
             android:layout_marginTop="16dp">
 
             <Button
+                android:id="@+id/cameraButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Camera"/>
 
             <Button
+                android:id="@+id/galleryButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Gallery"/>
         </LinearLayout>
-
+        <ProgressBar
+            android:id="@+id/progressBarAddStory"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/imageUpload"
+            app:layout_constraintEnd_toEndOf="@+id/imageUpload"
+            app:layout_constraintStart_toStartOf="@+id/imageUpload"
+            app:layout_constraintTop_toBottomOf="@+id/tvUsers" />
         <!-- 4. Icon Location with Text -->
         <LinearLayout
+            android:id="@+id/llLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -61,6 +75,7 @@
                 android:src="@drawable/baseline_location_on_24"/>
 
             <TextView
+                android:id="@+id/detailLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Your Current Location"/>
@@ -68,6 +83,7 @@
 
         <!-- 5-7. Edit Texts with Borders -->
         <EditText
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/border_description"
@@ -75,10 +91,19 @@
             android:layout_marginTop="16dp"/>
 
         <EditText
+            android:id="@+id/tvDesc"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/border_description"
             android:hint="Description"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/tvDate"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@drawable/border_description"
+            android:hint="Date"
             android:layout_marginTop="16dp"/>
 
 
@@ -91,11 +116,13 @@
             android:layout_marginTop="16dp">
 
             <EditText
+                android:id="@+id/sTime"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_description"
-                android:hint="Start Time"/>
+                android:hint="Start Time"
+                android:inputType="number"/>
 
             <!-- Add margin between Start Time and End Time -->
             <Space
@@ -103,23 +130,30 @@
                 android:layout_height="1dp" />
 
             <EditText
+                android:id="@+id/eTime"
                 android:layout_width="0dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:background="@drawable/border_description"
-                android:hint="End Time"/>
+                android:hint="End Time"
+                android:inputType="number"/>
         </LinearLayout>
 
         <!-- 8. Edit Text for Max Participant -->
         <EditText
+            android:id="@+id/tvMaxpar"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/border_description"
             android:hint="Max Participant"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:inputType="number"
+            />
 
         <!-- 9. Button Create Event -->
         <Button
+            android:id="@+id/btnPostStory"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Create Event"

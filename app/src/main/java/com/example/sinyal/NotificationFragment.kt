@@ -1,59 +1,117 @@
 package com.example.sinyal
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import com.example.sinyal.R
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [NotificationFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class NotificationFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private var currentQuestionIndex = 0
+
+    // Add your Question data class here
+    private data class Question(
+        val imageResourceId: Int,
+        val correctAnswer: String,
+        val options: List<String>
+    )
+
+    // Add your questions list here
+    private val questions = listOf(
+        Question(
+            R.drawable.satu,
+            "Senang",
+            listOf("Senang", "nangis", "terhura", "HEHEHEHE")
+        ),
+        Question(
+            R.drawable.dua,
+            "nangis",
+            listOf("Senang", "nangis", "terhura", "HEHEHEHE")
+        ),
+        Question(
+            R.drawable.tiga,
+            "terhura",
+            listOf("Senang", "nangis", "terhura", "HEHEHEHE")
+        ),
+        Question(
+            R.drawable.empat,
+            "HEHEHEHE",
+            listOf("Senang", "nangis", "terhura", "HEHEHEHE")
+        ),
+        Question(
+            R.drawable.lima,
+            "Senang",
+            listOf("Senang", "nangis", "terhura", "HEHEHEHE")
+        )
+        // Add more questions here
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification, container, false)
+        val view = inflater.inflate(R.layout.fragment_notification, container, false)
+
+        // Initialize UI elements and set listeners
+        val nextButton = view.findViewById<Button>(R.id.nextButton)
+        nextButton.setOnClickListener {
+            checkAnswer()
+            currentQuestionIndex++
+            if (currentQuestionIndex < questions.size) {
+                loadQuestion()
+            } else {
+                showQuizCompletedMessage()
+            }
+        }
+
+        // Load the initial question
+        loadQuestion()
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment NotificationFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            NotificationFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun loadQuestion() {
+        val currentQuestion = questions[currentQuestionIndex]
+
+        val imageView = view?.findViewById<ImageView>(R.id.imageView)
+        imageView?.setImageResource(currentQuestion.imageResourceId)
+
+        val radioGroup = view?.findViewById<RadioGroup>(R.id.radioGroup)
+        radioGroup?.removeAllViews()
+
+        currentQuestion.options.forEachIndexed { index, option ->
+            val radioButton = RadioButton(requireContext())
+            radioButton.text = option
+            radioButton.id = index
+            radioGroup?.addView(radioButton)
+        }
+    }
+
+    private fun checkAnswer() {
+        val selectedRadioButtonId = view?.findViewById<RadioGroup>(R.id.radioGroup)?.checkedRadioButtonId
+        if (selectedRadioButtonId != -1) {
+            val selectedRadioButton = view?.findViewById<RadioButton>(selectedRadioButtonId!!)
+            val userAnswer = selectedRadioButton?.text.toString()
+            val correctAnswer = questions[currentQuestionIndex].correctAnswer
+
+            if (userAnswer != correctAnswer) {
+                Toast.makeText(
+                    requireContext(),
+                    "Jawaban Salah. Jawaban yang benar: $correctAnswer",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
+        }
+    }
+
+    private fun showQuizCompletedMessage() {
+        Toast.makeText(requireContext(), "Kuis Selesai", Toast.LENGTH_SHORT).show()
     }
 }
